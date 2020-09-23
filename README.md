@@ -1,0 +1,10 @@
+# task-manager-api
+
+## Environment Variables
+
+PORT=
+SENDGRID_API_KEY=
+SENDGRID_TO_ADDRESS=
+SENDGRID_FROM_ADDRESS=
+JWT_SECRET=
+MONGODB_URL=

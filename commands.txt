@@ -1,0 +1,13 @@
+RUN THE MONGO DATABASE
+/Users/scott/mongodb/bin/mongod.exe --dbpath=/Users/scott/mongodb-data
+
+GIT COMMANDS
+git status
+git add .
+git commit -m "your commit comment"
+git push
+
+NPM COMMANDS
+npm install <package-name>
+npm install -g <package-name>
+npm install <package-name> --save-dev
