@@ -6,36 +6,36 @@ Task Manager REST API application written using Node.js and using MongoDB.
 
 ## Dependencies
 
--express
--mongodb
--mongoose
--sendgrid/mail
--jsonwebtoken
--validator
--bcryptjs
--multer
--sharp
+```sh
+express
+mongodb
+mongoose
+sendgrid/mail
+jsonwebtoken
+validator
+bcryptjs
+multer
+sharp
+```
 
 ## Dev Dependencies
 
--nodemon
--env-cmd
-
+```sh
+nodemon
+env-cmd
+```
 ## Environment Variables
 
-The following environment variables will need to be setup in the task-manager-api/config directory.
+The following environment variables will need to be setup within ./config.dev.env.
 
+```sh
 PORT=
-
 SENDGRID_API_KEY=
-
 SENDGRID_TO_ADDRESS=
-
 SENDGRID_FROM_ADDRESS=
-
 JWT_SECRET=
-
 MONGODB_URL=
+```
 
 ## Install
 
@@ -66,4 +66,12 @@ npm run test
 ```sh
 POST /users
 POST /users/login
+POST /users/logout
+POST /users/logoutAll
+GET /users/me
+PATCH /users/me
+DELETE /users/me
+POST /users/me/avatar
+DELETE /users/me/avatar
+GET /users/:id/avatar
 ```
