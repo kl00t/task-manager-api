@@ -74,4 +74,10 @@ DELETE /users/me
 POST /users/me/avatar
 DELETE /users/me/avatar
 GET /users/:id/avatar
+
+POST /tasks
+GET /tasks?completed=true&limit=10&skip=10&sortBy=createdAt:desc
+GET /tasks/:id
+PATCH /tasks/:id
+DELETE /tasks/:id
 ```
