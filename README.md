@@ -23,6 +23,8 @@ sharp
 ```sh
 nodemon
 env-cmd
+jest
+supertest
 ```
 ## Environment Variables
 

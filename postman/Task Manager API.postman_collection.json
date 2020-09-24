@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "9c93f816-4257-4932-a73a-4bf2fd135f39",
+		"name": "Task Manager API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "116f782e-9992-4bbb-b75f-2994dbf6cd96",
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"    pm.environment.set('authToken', pm.response.json().token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Scott Vaughan\",\r\n    \"email\": \"scott_vaughan@hotmail.com\",\r\n    \"password\": \"P@ssword123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2b1bd459-e2c0-4b5b-9980-341c5648c8d9",
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    pm.environment.set('authToken', pm.response.json().token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"scott_vaughan@hotmail.com\",\r\n    \"password\": \"P@ssword123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout All User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/logoutAll",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logoutAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Scott Vaughan UPDATED\",\r\n    \"password\": \"PWD UPDATED\",\r\n    \"age\": 41,\r\n    \"email\": \"scott_vaughan@home.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Avatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/scott/Desktop/node-course/node-course-images/profile-pic.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me/avatar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Avatar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/me/avatar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Avatar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/5f6af6d14f32662428ae9ffb/avatar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"5f6af6d14f32662428ae9ffb",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Get a test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Tasks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks?completed=false&limit=10&skip=0&sortBy=createdAt:asc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "completed",
+									"value": "false"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt:asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/tasks/5f6b8e6ec590950017934560",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"5f6b8e6ec590950017934560"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/5f6af6e14f32662428ae9ffe",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"5f6af6e14f32662428ae9ffe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/5f6a119e59c19834d4481ca3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"5f6a119e59c19834d4481ca3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cdd2a852-a702-4f76-9669-11bf4a0192e3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3171601e-54ba-429e-93f5-f930495b1539",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
