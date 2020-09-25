@@ -1,40 +1,42 @@
 const request = require('supertest')
-const jwt = require('jsonwebtoken')
-const mongoose = require('mongoose')
 const app = require('../src/app')
 const User = require('../src/models/user')
+const { validUserId, validUser, inValidUser, setupDatabase, tearDownDatabase } = require('./fixtures/db')
 
-// Generate valid object id for the user
-const validUserId = new mongoose.Types.ObjectId()
+beforeEach(setupDatabase)
 
-// Create a valid user
-const validUser = {
-    _id: validUserId,
-    name: 'Mike',
-    email: 'mike@example.com',
-    age: 21,
-    password: 'MyV@alidP@ssword123!',
-    tokens: [{
-        token: jwt.sign( { _id: validUserId }, process.env.JWT_SECRET)
-    }]
-}
+afterEach(tearDownDatabase)
 
-const inValidUser = {
-    name: 'Dave',
-    email: 'dave@example.com',
-    age: 40,
-    password: 'Red@123!'
-}
-
-beforeEach( async () => {
-    // runs before each test run
-    await User.deleteMany()
-    await new User(validUser).save()
+test('Should not signup user with invalid name', async () => {
+    const response = await request(app)
+        .post('/users')
+        .send({
+            email: 'frank_adams@example.com',
+            password: 'MyV@alidP@ssword123!'
+        })
+        .expect(400)
 })
 
-afterEach( async () => {
-    // runs after each test run
-    //await User.deleteMany()
+test('Should not signup user with invalid email', async () => {
+    const response = await request(app)
+        .post('/users')
+        .send({
+            name: 'Frank',
+            email: 'frank_adams@',
+            password: 'MyV@alidP@ssword123!'
+        })
+        .expect(400)
+})
+
+test('Should not signup user with invalid password', async () => {
+    const response = await request(app)
+        .post('/users')
+        .send({
+            name: 'Frank',
+            email: 'frank_adams@example.com',
+            password: 'MyPassword123!'
+        })
+        .expect(400)
 })
 
 test('Should signup a new user', async () => {
@@ -123,7 +125,7 @@ test('Should delete account for user', async () => {
         expect(user).toBeNull()
 })
 
-test('Should not delete account for unauthenticated user', async () => {
+test('Should not delete user if unauthenticated', async () => {
     await request(app)
         .delete('/users/me')
         .send()
@@ -189,7 +191,7 @@ test('Should update valid user fields', async () => {
         })
 })
 
-test('Should not update for unauthenticated user', async () => {
+test('Should not update user if unauthenticated', async () => {
     await request(app)
         .patch('/users/me')
         .send({name: 'Bob'})
@@ -206,4 +208,44 @@ test('Should not update invalid user fields', async () => {
             shoeSize: 9
         })
         .expect(400)
+})
+
+test('Should not update user with invalid email field', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${validUser.tokens[0].token}`)
+        .send({
+            eemail: 'dave@example'
+        })
+        .expect(400)
+})
+
+test('Should not update user with invalid email', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${validUser.tokens[0].token}`)
+        .send({
+            email: 'dave@example'
+        })
+        .expect(500)
+})
+
+test('Should not update user with invalid password field', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${validUser.tokens[0].token}`)
+        .send({
+            pass: 'newPassword'
+        })
+        .expect(400)
+})
+
+test('Should not update user with invalid password', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${validUser.tokens[0].token}`)
+        .send({
+            password: 'newPassword'
+        })
+        .expect(500)
 })
